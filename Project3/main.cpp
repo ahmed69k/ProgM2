@@ -28,7 +28,10 @@ Card::Card(int n) {
 }
 
 int Card::getNumber() {
-	return number;
+	if (this != nullptr)
+		return number;
+	else
+		return -1;
 }
 
 void Card::setNumber(int num) {
@@ -66,8 +69,8 @@ void Card::display() {
 		cout << "| X |";
 	}
 	else if (!isFaceUp) {
-		cout << "| * |";
-		//cout << "| " << number << " |";
+		//cout << "| * |";
+		cout << "| " << number << " |";
 	}
 	else {
 		cout << "| " << number << " |";
@@ -341,12 +344,16 @@ void Game::startGame() {
 					p1->incrScore();
 					p1->incrScore();
 					d->removeCard(x, y);
+					c1 = nullptr;
 					d->removeCard(a, b);
+					c2 = nullptr;
 				}
 				else {
 					p1->incrScore();
 					d->removeCard(x, y);
+					c1 = nullptr;
 					d->removeCard(a, b);
+					c2 = nullptr;
 				}
 				if (isPenalty) {
 					nextTurn();  // End the penalty turn
@@ -367,13 +374,17 @@ void Game::startGame() {
 					p1->decrScore();
 					p1->decrScore();
 					d->removeCard(x, y);
+					c1 = nullptr;
 					d->removeCard(a, b);
+					c2 = nullptr;
 				}
 				else {
 					p1->decrScore();
 					isPenalty = true;
 					d->removeCard(x, y);
+					c1 = nullptr;
 					d->removeCard(a, b);
+					c2 = nullptr;
 				}
 				if (!isPenalty) {
 					switchTurn();
@@ -388,8 +399,9 @@ void Game::startGame() {
 			if (c1 && c2 && c1->getNumber() == 8 || c2->getNumber() == 8) {
 				clearConsole();
 				if (c1->getNumber() == 8) {
-					p2->decrScore();
+					p1->decrScore();
 					d->removeCard(x, y);
+					c1 = nullptr;
 					if (isPenalty) {
 						nextTurn();
 						isPenalty = false;
@@ -401,8 +413,9 @@ void Game::startGame() {
 
 				}
 				else {
-					p2->decrScore();
+					p1->decrScore();
 					d->removeCard(a, b);
+					c2 = nullptr;
 					if (isPenalty) {
 						nextTurn();
 						isPenalty = false;
@@ -418,7 +431,9 @@ void Game::startGame() {
 
 			if (c1 && c2 && c1->getNumber() == 7 && c2->getNumber() == 8) {
 				d->removeCard(x, y);
+				c1 = nullptr;
 				d->removeCard(a, b);
+				c2 = nullptr;
 				if (isPenalty) {
 					nextTurn();
 					isPenalty = false;
@@ -434,6 +449,7 @@ void Game::startGame() {
 				if (c1->getNumber() == 7) {
 					p1->incrScore();
 					d->removeCard(x, y);
+					c1 = nullptr;
 					if (isPenalty) {
 						nextTurn();
 						isPenalty = false;
@@ -446,6 +462,7 @@ void Game::startGame() {
 				else {
 					p1->incrScore();
 					d->removeCard(a, b);
+					c2 = nullptr;
 					if (isPenalty) {
 						nextTurn();
 						isPenalty = false;
@@ -463,7 +480,9 @@ void Game::startGame() {
 				cout << "Card match!" << endl;
 				p1->incrScore();
 				d->removeCard(x, y);
+				c1 = nullptr;
 				d->removeCard(a, b);
+				c2 = nullptr;
 				if (isPenalty) {
 					nextTurn();
 					isPenalty = false;
@@ -472,7 +491,7 @@ void Game::startGame() {
 					nextTurn();
 				};
 			}
-			else if (c1 && c2 && c1->getNumber() != c2->getNumber()) {
+			else if (c1 && c2 && c1->getNumber() != c2->getNumber() && c1->getNumber() != 7 && c1->getNumber() != 8 && c2->getNumber() != 7 && c2->getNumber() != 8) {
 				this_thread::sleep_for(std::chrono::seconds(1));
 				clearConsole();
 				cout << "Cards don't match!" << endl;
@@ -522,12 +541,16 @@ void Game::startGame() {
 					p2->incrScore();
 					p2->incrScore();
 					d->removeCard(x, y);
+					c1 = nullptr;
 					d->removeCard(a, b);
+					c2 = nullptr;
 				}
 				else {
 					p2->incrScore();
 					d->removeCard(x, y);
+					c1 = nullptr;
 					d->removeCard(a, b);
+					c2 = nullptr;
 				}
 				if (isPenalty) {
 					nextTurn();  // End the penalty turn
@@ -548,13 +571,17 @@ void Game::startGame() {
 					p2->decrScore();
 					p2->decrScore();
 					d->removeCard(x, y);
+					c1 = nullptr;
 					d->removeCard(a, b);
+					c2 = nullptr;
 				}
 				else {
 					p2->decrScore();
 					isPenalty = true;
 					d->removeCard(x, y);
+					c1 = nullptr;
 					d->removeCard(a, b);
+					c2 = nullptr;
 				}
 				if (!isPenalty) {
 					switchTurn();
@@ -571,6 +598,7 @@ void Game::startGame() {
 				if (c1->getNumber() == 8) {
 					p2->decrScore();
 					d->removeCard(x, y);
+					c1 = nullptr;
 					if (isPenalty) {
 						nextTurn();
 						isPenalty = false;
@@ -584,6 +612,7 @@ void Game::startGame() {
 				else {
 					p2->decrScore();
 					d->removeCard(a, b);
+					c2 = nullptr;
 					if (isPenalty) {
 						nextTurn();
 						isPenalty = false;
@@ -600,12 +629,14 @@ void Game::startGame() {
 				if (c1->getNumber() == 7) {
 					p2->incrScore();
 					d->removeCard(x, y);
+					c1 = nullptr;
 					switchTurn();
 					nextTurn();
 				}
 				else {
 					p2->incrScore();
 					d->removeCard(a, b);
+					c2 = nullptr;
 					switchTurn();
 					nextTurn();
 				}
@@ -614,7 +645,9 @@ void Game::startGame() {
 
 			if (c1 && c2 && c1->getNumber() == 7 && c2->getNumber() == 8) {
 				d->removeCard(x, y);
+				c1 = nullptr;
 				d->removeCard(a, b);
+				c2 = nullptr;
 				if (isPenalty) {
 					nextTurn();
 					isPenalty = false;
@@ -630,7 +663,9 @@ void Game::startGame() {
 				cout << "Card match!" << endl;
 				p2->incrScore();
 				d->removeCard(x, y);
+				c1 = nullptr;
 				d->removeCard(a, b);
+				c2 = nullptr;
 				if (isPenalty) {
 					nextTurn();
 					isPenalty = false;
