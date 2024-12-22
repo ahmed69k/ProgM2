@@ -54,6 +54,8 @@ void Card::setFace(bool f) {
 	if (this != nullptr) {
 		isFaceUp = f;
 	}
+	else
+		cout << "not there"<<endl;
 
 }
 void Card::reveal() {
@@ -69,8 +71,8 @@ void Card::display() {
 		cout << "| X |";
 	}
 	else if (!isFaceUp) {
-		//cout << "| * |";
-		cout << "| " << number << " |";
+		cout << "| * |";
+		/*cout << "| " << number << " |";*/
 	}
 	else {
 		cout << "| " << number << " |";
