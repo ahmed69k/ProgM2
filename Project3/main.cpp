@@ -54,8 +54,7 @@ void Card::setFace(bool f) {
 	if (this != nullptr) {
 		isFaceUp = f;
 	}
-	else
-		cout << "not there"<<endl;
+	
 
 }
 void Card::reveal() {
@@ -696,14 +695,25 @@ void Game::startGame() {
 	if (p1->getScore() > p2->getScore()) {
 		cout << p1->getName() << " wins!" << "\nScore: " << p1->getScore() << endl;
 	}
-	else {
+	else if (p1->getScore() < p2->getScore()) {
 		cout << p2->getName() << " wins!" << "\nScore: " << p2->getScore() << endl;
+	}
+	else {
+		cout << "It's a tie!" << endl;
+
 	}
 }
 
 
 int main() {
-	Game game("Ahmed", "Malak");
+	cout << "Welcome to Card Matching Game!" << endl;
+	cout<<  "Enter Player 1 Name: ";
+	string p1;
+	cin >> p1;
+	cout << "Enter Player 2 Name: ";
+	string p2;
+	cin >> p2;
+	Game game(p1,p2);
 	game.startGame();
 	return 0;
 }
